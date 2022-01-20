@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, createContext } from 'react';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import { Home } from "./pages/Home";
+import { NewRoom } from "./pages/NewRoom";
+
+export const TestContext = createContext({} as any );
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [value, setValue] = useState('Teste'); 
+
+   return (
+    <div>
+      <BrowserRouter>
+        
+        <Switch>
+        <TestContext.Provider value = {{value, setValue}}>
+          <Route path="/" exact component={Home} />
+          <Route path="/rooms/new" component={NewRoom} />
+        </TestContext.Provider>
+       </Switch>
+      </BrowserRouter>
     </div>
-  );
+    );
 }
 
 export default App;
